@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from alembic import context
 from app.config import settings
 from app.database import Base
-from app.models import Lesson, Tutor  # noqa: F401 — register models with metadata
+from app.models import Lesson, Tutor  # noqa: F401 – register models with metadata
 
 config = context.config
 
