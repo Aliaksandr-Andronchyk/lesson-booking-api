@@ -1,7 +1,7 @@
 [project]
 name = "lesson-booking-api"
 version = "0.1.0"
-description = "Lesson booking REST API for tutors — FastAPI + async SQLAlchemy + PostgreSQL"
+description = "Lesson booking REST API for tutors – FastAPI + async SQLAlchemy + PostgreSQL"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
