@@ -2,14 +2,14 @@
 
 ![CI](https://github.com/SashaAndronchyk/lesson-booking-api/actions/workflows/ci.yml/badge.svg)
 
-REST API for tutors to manage lesson bookings — a compact but production-shaped demo service.
+REST API for tutors to manage lesson bookings – a compact but production-shaped demo service.
 
 **Stack:** FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL (asyncpg) · Alembic · Docker Compose · pytest · GitHub Actions
 
 ## Features
 
-- **Tutors** — CRUD with unique-email guard (409 on duplicates), pagination, subject filter
-- **Lessons** — booking with business rules:
+- **Tutors** – CRUD with unique-email guard (409 on duplicates), pagination, subject filter
+- **Lessons** – booking with business rules:
   - time-slot **overlap detection** per tutor (409 on conflict; back-to-back slots allowed)
   - cancelled slots can be rebooked
   - status lifecycle `scheduled → completed | cancelled` with guarded transitions
