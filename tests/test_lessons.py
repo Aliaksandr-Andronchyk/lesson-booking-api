@@ -98,3 +98,9 @@ async def test_list_lessons_filters(client: AsyncClient, tutor: dict):
 
     response = await client.get("/lessons", params={"status": "cancelled"})
     assert response.json()["total"] == 0
+
+
+async def test_list_lessons_invalid_status_rejected(client: AsyncClient, tutor: dict):
+    await create_lesson(client, tutor["id"])
+    response = await client.get("/lessons", params={"status": "bogus"})
+    assert response.status_code == 422
