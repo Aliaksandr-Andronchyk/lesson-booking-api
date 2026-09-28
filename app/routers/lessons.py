@@ -58,6 +58,12 @@ async def list_lessons(
     if tutor_id is not None:
         query = query.where(Lesson.tutor_id == tutor_id)
     if status_filter is not None:
+        valid_statuses = {LessonStatus.SCHEDULED, LessonStatus.COMPLETED, LessonStatus.CANCELLED}
+        if status_filter not in valid_statuses:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                f"Invalid status filter: {status_filter}",
+            )
         query = query.where(Lesson.status == status_filter)
     if starts_after is not None:
         query = query.where(Lesson.starts_at >= starts_after)
