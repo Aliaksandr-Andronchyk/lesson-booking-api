@@ -28,6 +28,8 @@ class LessonCreate(BaseModel):
 
     @model_validator(mode="after")
     def check_time_range(self) -> "LessonCreate":
+        if self.starts_at.tzinfo is not None or self.ends_at.tzinfo is not None:
+            raise ValueError("starts_at/ends_at must be naive (no timezone offset)")
         if self.ends_at <= self.starts_at:
             raise ValueError("ends_at must be after starts_at")
         return self
