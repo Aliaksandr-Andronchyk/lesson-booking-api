@@ -37,6 +37,16 @@ async def test_invalid_time_range_rejected(client: AsyncClient, tutor: dict):
     assert response.status_code == 422
 
 
+async def test_timezone_aware_start_rejected(client: AsyncClient, tutor: dict):
+    response = await create_lesson(
+        client,
+        tutor["id"],
+        starts_at="2026-08-01T13:00:00+03:00",
+        ends_at="2026-08-01T14:00:00+03:00",
+    )
+    assert response.status_code == 422
+
+
 async def test_overlapping_lesson_conflict(client: AsyncClient, tutor: dict):
     assert (await create_lesson(client, tutor["id"])).status_code == 201
     # Overlaps 10:30–11:30 with existing 10:00–11:00
