@@ -66,8 +66,18 @@ async def list_lessons(
             )
         query = query.where(Lesson.status == status_filter)
     if starts_after is not None:
+        if starts_after.tzinfo is not None:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                "starts_after must be naive (no timezone offset)",
+            )
         query = query.where(Lesson.starts_at >= starts_after)
     if starts_before is not None:
+        if starts_before.tzinfo is not None:
+            raise HTTPException(
+                status.HTTP_422_UNPROCESSABLE_ENTITY,
+                "starts_before must be naive (no timezone offset)",
+            )
         query = query.where(Lesson.starts_at <= starts_before)
     total = await session.scalar(select(func.count()).select_from(query.subquery()))
     rows = await session.scalars(query.order_by(Lesson.starts_at).limit(limit).offset(offset))
