@@ -114,3 +114,11 @@ async def test_list_lessons_invalid_status_rejected(client: AsyncClient, tutor: 
     await create_lesson(client, tutor["id"])
     response = await client.get("/lessons", params={"status": "bogus"})
     assert response.status_code == 422
+
+
+async def test_list_lessons_timezone_aware_filter_rejected(client: AsyncClient, tutor: dict):
+    await create_lesson(client, tutor["id"])
+    response = await client.get(
+        "/lessons", params={"starts_after": "2026-08-01T00:00:00+03:00"}
+    )
+    assert response.status_code == 422
